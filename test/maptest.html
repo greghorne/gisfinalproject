@@ -1,0 +1,104 @@
+<html>
+	<head>
+		<title></title>
+
+	 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	 	<style type="text/css">
+		 	html, body {
+   				height: 100%;
+			}
+			#map { height: 100%; }
+	 	</style>
+
+	</head>
+
+	<body
+		<div id="map">
+		</div>
+		
+		<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+		<script>
+			// create a map in the "map" div, set the view to a given place and zoom
+			var map = L.map('map').setView([30.269259, -97.742527], 11);
+
+			// var map = L.map('map').setView([<%=@latitude%>, <%=@longitude%>], <%=@zoom%>);
+
+
+			//add an OpenStreetMap tile layer
+			var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+			    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+			}).addTo(map);
+
+
+
+			// var osmb = new OSMBuildings(map).loadData();
+			// L.control.layers({ Buildings:osmb }).addTo(map); // add to layer switcher (optional)
+
+			var censusBlockGroups = new L.TileLayer.WMS("http://tigerweb.geo.census.gov/arcgis/services/TIGERweb/tigerWMS_Census2010/MapServer/WMSServer",
+			{
+			  layers: 'Census Block Groups',
+			  format: 'image/png',
+			  transparent: true
+			  // attribution: TigerAttribution
+			});
+			censusBlockGroups.addTo(map);
+
+			L.control.scale().addTo(map);
+
+			// this will get the bounds of the map
+			// on the initial page load
+			var bounds = map.getBounds();
+			console.log(bounds);
+
+			// this will subsequently get the bounds of the
+			// map on further map changes
+			map.on('moveend', function (e) {
+				console.log("Map Change End", map.getBounds()); 
+			});
+
+
+
+			var baseMaps = {
+				"OSM": osm,
+				"Block Groups": censusBlockGroups
+			}
+
+
+			L.control.layers(baseMaps).addTo(map);
+
+			
+			// $.ajax({  
+  	// 			url: "http://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/tigerWMS_Census2010/MapServer/16/query",  
+  	// 			data: { f: "json", where: "STATE=TX", returnGeometry: false
+  	// 			 },  
+  	// 			dataType: "jsonp",  
+			// 	  jsonpCallback: "callback",  
+			// 	  success: function(response) {  
+   //  			console.log("got response: ", response);  
+			//   }  
+			// });
+ 			
+ 			// L.tileLayer('http://census.sparkgeo.com/{z}/{x}/{y}.png').addTo(map);
+			
+
+			//http://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb
+			
+
+			// var precipitation = L.tileLayer.wms('http://nowcoast.noaa.gov/wms/com.esri.wms.Esrimap/obs', {
+   //  			format: 'image/png',
+   //  			transparent: true,
+   //  			layers: 'RAS_RIDGE_NEXRAD'
+			// }).addTo(map);
+
+
+
+			// add a marker in the given location, attach some popup content to it and open the popup
+			L.marker([30.269259, -97.742527]).addTo(map)
+			    .bindPopup('MKS-ATX<br>Hardcoded Pop-up');
+
+
+		</script>
+		
+
+	</body>
+</html>

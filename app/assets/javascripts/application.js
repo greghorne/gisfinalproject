@@ -13,4 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+
+
+//= require leaflet
+//= require mapbox
+//= OSMBuildings-Leaflet
 //= require_tree .
