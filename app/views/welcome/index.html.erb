@@ -62,7 +62,7 @@
 			////////////////////////////////////////////
 
 			////////////////////////////////////////////
-			// Add OSM Geocoder Widget\
+			// Add OSM Geocoder Widget
 			var options = {
 				collapsed: true,
 				position: 'topright',
@@ -71,14 +71,19 @@
 					console.log(geocodeResults)
 
 					if (geocodeResults.length > 0) {
-
-						if (geocodeResults[0].type === "house") {
+						//
+						// geocoding with OSM; leaves a lot to be desired
+						// possibly change later; not overly releavent to project
+						// 
+						type = geocodeResults[0].type
+						if (type === "house" || type === "postcode") {
+							console.log("type1 match")
 							map.setView([geocodeResults[0].lat, geocodeResults[0].lon], 16);
 						} else {
+							console.log("type2 match")
 							x1 = geocodeResults[0].boundingbox[0];
+							x2 = geocodeResults[0].boundingbox[1];							
 							y1 = geocodeResults[0].boundingbox[2];
-						
-							x2 = geocodeResults[0].boundingbox[1];
 							y2 = geocodeResults[0].boundingbox[3];
 				
 							point1 = new L.LatLng(x1, y1);
@@ -95,7 +100,6 @@
 			map.addControl(osmGeocoder);
 			////////////////////////////////////////////
 
-
 			////////////////////////////////////////////
 			// this will get the bounds of the map on the initial page load
 			var bounds = map.getBounds();
@@ -109,9 +113,11 @@
 			});
 			////////////////////////////////////////////
 
+			////////////////////////////////////////////
 			// add a marker in the given location, attach some popup content to it and open the popup
 			L.marker([30.269259, -97.742527]).addTo(map)
 			    .bindPopup('MKS-ATX<br>Hardcoded Pop-up');
+			////////////////////////////////////////////			    
 
 		</script>
 	</body>
