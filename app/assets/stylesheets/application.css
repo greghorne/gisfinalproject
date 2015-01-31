@@ -17,5 +17,6 @@
 *= depend_on_asset "layers.png"
 *= depend_on_asset "layers-2x.png"
 *= require mapbox
+*= Control.OSMGeocoder.css
 *=require_tree .
 */

@@ -18,13 +18,16 @@
 		  :latlng => [30.269259, -97.742527],
 		  :zoom => 11 },
 		  :attribution => '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-		  :max_zoom => 50,
+		  :max_zoom => 19,
+		  :min_zoom => 3
 		) %>
 
 		<script type="text/javascript">
 
 			// var mapbox = L.mapbox.tileLayer('https://api.tiles.mapbox.com/v3/examples.map-0l53fhk2.json');
 			// mapbox.addTo(map)
+
+			//this._map = map;
 
 			////////////////////////////////////////////
 			// add census block layer to map		
@@ -44,9 +47,9 @@
 			////////////////////////////////////////////
 
 			////////////////////////////////////////////
-			// define basemap(s)
+			// Add Layer Control Widget
 			var baseMaps = {
-				"OSM": this.map
+				//."OSM": map
 				// "Mapbox": mapbox
 			}
 			// define overlays
@@ -59,6 +62,41 @@
 			////////////////////////////////////////////
 
 			////////////////////////////////////////////
+			// Add OSM Geocoder Widget\
+			var options = {
+				collapsed: true,
+				position: 'topright',
+				text: "Geocode",
+				callback: function (geocodeResults) {
+					console.log(geocodeResults)
+
+					if (geocodeResults.length > 0) {
+
+						if (geocodeResults[0].type === "house") {
+							map.setView([geocodeResults[0].lat, geocodeResults[0].lon], 16);
+						} else {
+							x1 = geocodeResults[0].boundingbox[0];
+							y1 = geocodeResults[0].boundingbox[2];
+						
+							x2 = geocodeResults[0].boundingbox[1];
+							y2 = geocodeResults[0].boundingbox[3];
+				
+							point1 = new L.LatLng(x1, y1);
+							point2 = new L.LatLng(x2, y2);
+				
+							bounds = new L.LatLngBounds(point1, point2);
+							map.fitBounds(bounds);
+						}
+					}
+				}
+			};
+
+			var osmGeocoder = new L.Control.OSMGeocoder(options);
+			map.addControl(osmGeocoder);
+			////////////////////////////////////////////
+
+
+			////////////////////////////////////////////
 			// this will get the bounds of the map on the initial page load
 			var bounds = map.getBounds();
 			console.log(bounds);
@@ -67,6 +105,7 @@
 			// map on further map changes
 			map.on('moveend', function (e) {
 				console.log("Event: moveend", map.getBounds()); 
+				console.log("Zoom: ", map.getZoom())
 			});
 			////////////////////////////////////////////
 

@@ -18,4 +18,5 @@
 //= require leaflet
 //= require mapbox
 //= OSMBuildings-Leaflet
+//= Control.OSMGeocoder.js
 //= require_tree .
