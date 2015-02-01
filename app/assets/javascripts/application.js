@@ -20,4 +20,9 @@
 //= OSMBuildings-Leaflet
 //= Control.OSMGeocoder
 //= bouncemaker
+//= Control.Loading
+//= leaflet.freedraw-src
+//= Google
+//= l.control.geosearch
+//= l.geosearch.provider.google
 //= require_tree .

@@ -18,5 +18,7 @@
 *= depend_on_asset "layers-2x.png"
 *= require mapbox
 *= Control.OSMGeocoder.css
+*= Control.Loading
+*= l.geosearch
 *=require_tree .
 */

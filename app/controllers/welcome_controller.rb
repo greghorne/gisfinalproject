@@ -3,7 +3,6 @@ require 'rest-client'
 class WelcomeController < ApplicationController
   def index
 
-
     response = RestClient.get("http://freegeoip.net/json")
     myData = JSON.parse(response)
 
@@ -20,5 +19,6 @@ class WelcomeController < ApplicationController
       @zoom = 15
       @isGeoLocation = true
     end
+
   end
 end
