@@ -26,6 +26,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'leaflet-rails'
 gem 'mapbox-rails'
 gem 'geocoder'
+gem 'rest-client'
 
 
 # Use ActiveModel has_secure_password

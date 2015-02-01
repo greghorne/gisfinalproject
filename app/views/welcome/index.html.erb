@@ -15,14 +15,15 @@
 		<div id="map"></div>
 
 		<%= map(id = :center => {
-		  :latlng => [30.269259, -97.742527],
-		  :zoom => 11 },
+		  :latlng => [@latitude, @longitude],
+		  :zoom => @zoom },
 		  :attribution => '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
 		  :max_zoom => 19,
 		  :min_zoom => 3
 		) %>
 
 		<script type="text/javascript">
+
 
 			// var mapbox = L.mapbox.tileLayer('https://api.tiles.mapbox.com/v3/examples.map-0l53fhk2.json');
 			// mapbox.addTo(map)
@@ -110,13 +111,19 @@
 			map.on('moveend', function (e) {
 				console.log("Event: moveend", map.getBounds()); 
 				console.log("Zoom: ", map.getZoom())
+				console.log("Center: ", map.getCenter())
 			});
 			////////////////////////////////////////////
 
 			////////////////////////////////////////////
-			// add a marker in the given location, attach some popup content to it and open the popup
-			L.marker([30.269259, -97.742527]).addTo(map)
-			    .bindPopup('MKS-ATX<br>Hardcoded Pop-up');
+			// add marker to map for initial location
+			if  (<%= @isGeoLocation %> == true)  {
+   				L.marker([<%= @latitude %>, <%= @longitude %>], {
+   					bounceOnAdd: true, 
+   					bounceOnAddOptions: { duration: 3000, height: 700 }
+   				}).addTo(map)
+			    	.bindPopup('<center>Your approximate location<br>(Based on your IP address)</center>');
+			}
 			////////////////////////////////////////////			    
 
 		</script>

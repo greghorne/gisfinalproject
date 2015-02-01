@@ -18,5 +18,6 @@
 //= require leaflet
 //= require mapbox
 //= OSMBuildings-Leaflet
-//= Control.OSMGeocoder.js
+//= Control.OSMGeocoder
+//= bouncemaker
 //= require_tree .
