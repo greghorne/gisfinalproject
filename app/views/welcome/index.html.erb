@@ -175,9 +175,31 @@
 			L.control.layers({ postion: 'topleft'} ).addTo(map)
 			////////////////////////////////////////////
 
+
+
+			////////////////////////////////////////////
+			// begin work code
+			////////////////////////////////////////////
+
+			// need results of geocode, not for the function
+			// to automatically pan and zoom and place an icon
 			new L.Control.GeoSearch({
     			provider: new L.GeoSearch.Provider.Google()
 			}).addTo(map);
+
+			// looking at for draw tool on map
+			map.addLayer(new L.Freedraw({
+				mode: L.Freedraw.MODES.CREATE
+			}));
+
+			// Route360 for Drive Time polygons
+			// Emailed them, waiting on response, don't want to 
+			// spend money
+
+
+			////////////////////////////////////////////
+			// end work code
+			////////////////////////////////////////////
 
 		</script>
 	</body>
