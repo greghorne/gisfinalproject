@@ -156,9 +156,10 @@
 				'Open Street Map': osm,
 				'Black & White Map': blackAndWhite,
 				'Google Roadmap': googleRoadmap,
-				'Google Hybrid': googleHybrid,
-				'Google Satellite': googleSatellite,
-				'Google Terrain': googleTerrain
+				'Google Terrain': googleTerrain,
+				'Google Hybrid': googleHybrid
+				//'Google Satellite': googleSatellite
+
 			}
 			// define overlays
 			var overLays = {
@@ -195,6 +196,37 @@
 			// Route360 for Drive Time polygons
 			// Emailed them, waiting on response, don't want to 
 			// spend money
+			//
+			// Reply: Not available in U.S. just yet, they will
+			// contact me later again
+			//
+
+
+			// code snippet, map spin and zoom; try and modify later
+			// var spiralTo = document.getElementById('map');
+			// spiralTo.addEventListener('click', function() {
+			//   var duration = 2000;
+			//   var start = +new Date();
+			//   var pan = map.panTo(
+			//     map.center(),
+			//     { animate: true,
+			//       duration: duration,
+			//       noMoveStart: true
+			//     }
+			//    );
+			//   var bounce = map.animation.bounce({
+			//     duration: duration,
+			//     resolution: 2 * map.getResolution(),
+			//     start: start
+			//   });
+			//   var rotate = map.animation.rotate({
+			//     duration: duration,
+			//     rotation: -4 * Math.PI,
+			//     start: start
+			//   });
+			//   map.beforeRender(pan, bounce, rotate);
+			//   view.setCenter([-3.683333, 40.4]);
+			// }, false);
 
 
 			////////////////////////////////////////////
