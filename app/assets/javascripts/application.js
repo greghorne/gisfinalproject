@@ -25,4 +25,8 @@
 //= Google
 //= l.control.geosearch
 //= l.geosearch.provider.google
+//= d3
+//= JSClipper
+//= leaflet.draw-src
+//= alertify
 //= require_tree .

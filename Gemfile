@@ -27,6 +27,7 @@ gem 'leaflet-rails'
 gem 'mapbox-rails'
 gem 'geocoder'
 gem 'rest-client'
+gem 'd3-rails'
 
 
 # Use ActiveModel has_secure_password

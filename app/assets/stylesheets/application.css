@@ -20,5 +20,8 @@
 *= Control.OSMGeocoder.css
 *= Control.Loading
 *= l.geosearch
+*= leaflet-draw
+*= alertify.core
+*= alertify.default
 *=require_tree .
 */

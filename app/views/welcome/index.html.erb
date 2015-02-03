@@ -185,14 +185,105 @@
 			// need results of geocode, not for the function
 			// to automatically pan and zoom and place an icon
 			new L.Control.GeoSearch({
-    			provider: new L.GeoSearch.Provider.Google()
+    			provider: new L.GeoSearch.Provider.Google(function (results) {
+    				console.log("trace");	
+    			})
+
 			}).addTo(map);
 
-			// looking at for draw tool on map
-			map.addLayer(new L.Freedraw({
-				mode: L.Freedraw.MODES.CREATE
-			}));
+			////////////////////////////////////////////
+			// draw tool
+			// Initialise the FeatureGroup to store editable layers
+			var tempDrawn = new L.FeatureGroup();
+			var tempStaging = new L.FeatureGroup();
+			var userLayer = new L.FeatureGroup()
+			map.addLayer(tempDrawn, tempStaging, userLayer);
 
+			// Initialise the draw control and pass it the FeatureGroup of editable layers
+			var drawControl = new L.Control.Draw({
+			    edit: { featureGroup: tempDrawn }, 
+			    draw: { polyline: { metric: false }}
+			});
+
+			map.addControl(drawControl);
+
+			map.on('draw:created', function (e) {
+				
+				layerType = e.layerType;
+				layer = e.layer;
+				
+				console.log("Layer Type: ", layerType)
+
+				if (layerType === "polygon") {	
+					// dump coordinates of polygon
+					for (n = 0; n < layer._latlngs.length; n++) {
+						console.log(layer._latlngs[n].lat, layer._latlngs[n].lng, "(lat/lng)")
+					}
+				} else if (layerType === "rectangle") {
+					for (n = 0; n < layer._latlngs.length; n++) {
+						console.log(layer._latlngs[n].lat, layer._latlngs[n].lng, "(lat/lng)")
+					}
+				} else if (layerType === "circle") {
+					console.log(layer._latlng.lat, layer._latlng.lng, ("center"))
+					console.log(layer._mRadius, " radius (metres)")
+				}
+
+				alertify.confirm("Save " + layerType + "?", function (e) {
+					if (e) {
+						console.log("Save It")
+					} else {
+						console.log("Delete It")
+					}
+				})
+				alertify.success("Polygon Created")
+				// alertify.error("Error")
+				
+			})
+			////////////////////////////////////////////
+
+
+
+
+			//
+
+			// L.FreeDraw.MODES = {
+			//     VIEW:        1,
+			//     CREATE:      2,
+			//     EDIT:        4,
+			//     DELETE:      8,
+			//     APPEND:      16,
+			//     EDIT_APPEND: 4 | 16,
+			//     ALL:         1 | 2 | 4 | 8 | 16
+			// }
+
+			// L.Control.DrawPolygon = L.Control.extend(
+			// {
+			//     options:
+			//     {
+			//         position: 'topright',
+			//     },
+			//     onAdd: function (map) {
+			//         var controlDiv = L.DomUtil.create('div', 'leaflet-draw-toolbar leaflet-bar');
+			//         L.DomEvent
+			//             .addListener(controlDiv, 'click', L.DomEvent.stopPropagation)
+			//             .addListener(controlDiv, 'click', L.DomEvent.preventDefault)
+			//         	.addListener(controlDiv, 'click', function () {
+			//             	drawnItems.clearLayers();
+			//         	});
+
+			//         var controlUI = L.DomUtil.create('a', 'leaflet-draw-edit-remove', controlDiv);
+			//         controlUI.title = 'Remove All Polygons';
+			//         controlUI.href = '#';
+			//         return controlDiv;
+			//     }
+			// });
+
+			// var polygonDrawControl = new L.Freedraw({
+			// 	mode: 2
+			// });
+
+			// map.addControl(polygonDrawControl);
+			
 			// Route360 for Drive Time polygons
 			// Emailed them, waiting on response, don't want to 
 			// spend money
